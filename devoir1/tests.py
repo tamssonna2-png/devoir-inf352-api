@@ -186,6 +186,7 @@ class TransactionViewTest(TestCase):
         self.assertEqual(r.status_code, 404)
 
 
+
 #instruction pour faire les test  d'instructions
 #coverage run --source='.' manage.py test
 #coverage html

@@ -11,6 +11,25 @@ from .serializers import UtilisateurSerializer,ControleurSerializer,TransactionS
 from drf_spectacular.utils import extend_schema
 # Create your views here.
 
+
+from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
+
+@api_view(['POST'])
+def login_view(request):
+    nom = request.data.get('nom')
+    mot_de_passe = request.data.get('mot_de_passe')
+    
+    # Vérification des identifiants
+    user = authenticate(username=nom, password=mot_de_passe)
+    
+    if user is not None:
+        # Génération d'un jeton (Token) pour les requêtes futures
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({"token": token.key, "message": "Connexion réussie"}, status=200)
+    
+    return Response({"erreur": "Identifiants invalides"}, status=401)
+
 @extend_schema(request=UtilisateurSerializer)
 @api_view(['POST'])
 def ajouter_utilisateur(request):
@@ -105,6 +124,8 @@ def effectuer_transaction(request):
     
     try:
         montant = Decimal(str(data.get('montant')))
+        if (montant<=0):
+            return Response({"erreur": "le montant doit etre positif"}, status=400)
         with transaction.atomic():
             
             # --- CAS 1 : DEPOT (Seulement le recepteur) ---
@@ -158,6 +179,8 @@ def afficher_solde(request,util_id):
         util=get_object_or_404(Utilisateur,id=util_id)
         return Response(util.solde)
     except Exception as e:
-        return Response({"erreur":str(e)},statut=400)
+        return Response({"erreur":str(e)},status=400)
 
 #hey -n 10000 -c 100 http://127.0.0.1:8000/api/devoir1/liste-utilisateurs/
+#hey -n 10 -c 100 https://devoir-inf352-api.onrender.com/api/devoir1/liste-utilisateur/
+

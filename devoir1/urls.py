@@ -12,4 +12,5 @@ urlpatterns = [
     path('modifier-controleur/<int:contro_id>/',views.modifier_controleur,name='modifier_controleur'),
     path('effectuer-transaction/',views.effectuer_transaction,name='effectuer_transaction'),
     path('afficher-solde/<int:util_id>/',views.afficher_solde,name='afficher_solde'),
+    path('login-view/',views.login_view,name='login_view'),
 ]

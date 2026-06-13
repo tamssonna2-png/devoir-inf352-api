@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
-
+import os
+import dj_database_url
+from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -99,12 +101,30 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
+load_dotenv()
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+}"""
+
+db_url = os.environ.get('DATABASE_URL')
+#print("DATABASE_URL =", db_url)
+DATABASES = {
+    'default': dj_database_url.config(
+        default=db_url,
+        # Mettre conn_max_age à 0 est CRUCIAL en local avec Neon pour éviter 
+        # que le serveur ferme les connexions persistantes de manière inattendue
+        conn_max_age=0, 
+    )
 }
+
+# On s'assure que PostgreSQL exige le SSL (sécurité Neon obligatoire)
+if DATABASES.get('default'):
+    DATABASES['default']['OPTIONS'] = {
+        'sslmode': 'require',
+    }
 
 
 # Password validation
@@ -142,3 +162,62 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# ... (Tout le début de ton fichier reste identique)
+
+ROOT_URLCONF = 'config.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'config.wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+
+import sys  # On importe sys pour détecter la commande de test
+
+load_dotenv()
+
+# 🛠️ CONDITION SPECIALE POUR LA SOUTENANCE ET LES TESTS UNITAIRES
+if 'test' in sys.argv:
+    # Si on lance un "manage.py test", on court-circuite Neon pour utiliser SQLite en mémoire
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory:',
+        }
+    }
+else:
+    # Mode normal : Connexion à Neon via l'URL d'environnement (Local runserver & Serveur Render)
+    db_url = os.environ.get('DATABASE_URL')
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=db_url,
+            conn_max_age=0, # Crucial avec le pooler Neon
+        )
+    }
+
+    # On s'assure que PostgreSQL exige le SSL (sécurité Neon obligatoire)
+    if DATABASES.get('default'):
+        DATABASES['default']['OPTIONS'] = {
+            'sslmode': 'require',
+        }
+
+
+# Password validation
+# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
+# ... (Le reste du fichier reste identique)
