@@ -172,12 +172,16 @@ def effectuer_transaction(request):
     
     except Exception as e:
         return Response({"erreur": str(e)}, status=400)
-    
+
+from django.http import Http404
 @api_view(['GET'])
 def afficher_solde(request,util_id):
     try:
         util=get_object_or_404(Utilisateur,id=util_id)
         return Response(util.solde)
+    except Http404:
+        # On laisse Django renvoyer sa vraie erreur 404 (Page non trouvée)
+        raise Http404("Utilisateur non trouvé")
     except Exception as e:
         return Response({"erreur":str(e)},status=400)
 
