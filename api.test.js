@@ -112,7 +112,6 @@ describe('Scénario Complet de l\'API Bancaire sur Render', { timeout: 0 }, () =
     console.log(` Contrôleur trouvé en BDD. ID détecté : ${controleurId}`);
     expect(controleurId).toBeDefined();
   });
-  
 
 });
 

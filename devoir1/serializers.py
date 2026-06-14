@@ -17,7 +17,7 @@ class UtilisateurSerializer(serializers.ModelSerializer):
 class ControleurSerializer(serializers.ModelSerializer):
     class Meta:
         model = Controleur
-        fields = ['nom', 'mot_de_passe']
+        fields = ['id','nom', 'mot_de_passe']
         
 class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
