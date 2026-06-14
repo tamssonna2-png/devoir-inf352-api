@@ -140,7 +140,7 @@ def effectuer_transaction(request):
             elif type_t == 'RETRAIT':
                 util_id = data.get('expediteur_id') # L'ID de celui qui retire
                 util = get_object_or_404(Utilisateur, id=util_id)
-                if (util.solde < montant & util.solde <3000):
+                if (util.solde < montant and util.solde <3000):
                     return Response({"erreur": "Solde insuffisant"}, status=400)
                 util.solde -= montant
                 util.save()

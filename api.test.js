@@ -104,4 +104,24 @@ describe('Scénario Complet de l\'API Bancaire sur Render', { timeout: 30000 }, 
     expect(monControleurId).toBeDefined();
     expect(monControleurId).not.toBeNull();
   });
+  // Étape 7 : Modifier un contrôleur existant
+  it('7. devrait réussir à modifier les informations du contrôleur', async () => {
+    // On s'assure que l'ID du contrôleur a bien été récupéré à l'étape 6
+    expect(monControleurId).toBeDefined();
+    expect(monControleurId).not.toBeNull();
+
+    const payload = {
+      nom: "Contrôleur Modifié par Sonna"
+    };
+
+    console.log(`[MODIFICATION] Tentative de mise à jour du contrôleur ID : ${monControleurId}`);
+
+    // Appel de la route avec la méthode PATCH
+    const response = await axios.patch(`${BASE_URL}/api/devoir1/modifier-controleur/${monControleurId}/`, payload);
+    
+    // Validation du statut HTTP (200 OK)
+    expect(response.status).toBe(200);
+    console.log(" Contrôleur modifié avec succès sur Render");
+  });
+  
 });
