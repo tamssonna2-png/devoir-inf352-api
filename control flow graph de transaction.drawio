@@ -1,10 +1,10 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36">
   <diagram name="Page-1" id="-gP1taqJMk0fUGTaw23J">
-    <mxGraphModel dx="3770" dy="1789" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3402" dy="1565" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="y-0SpUq-JWPsnfOgp-lb-10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;Début&lt;/font&gt;" vertex="1">
+        <mxCell id="y-0SpUq-JWPsnfOgp-lb-10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;1) Début&lt;/font&gt;" vertex="1">
           <mxGeometry height="60" width="120" x="275" y="80" as="geometry" />
         </mxCell>
         <mxCell id="y-0SpUq-JWPsnfOgp-lb-60" edge="1" parent="1" source="y-0SpUq-JWPsnfOgp-lb-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=25;" target="y-0SpUq-JWPsnfOgp-lb-26">
@@ -15,10 +15,10 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="y-0SpUq-JWPsnfOgp-lb-11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;Erreur 400&lt;/font&gt;" vertex="1">
+        <mxCell id="y-0SpUq-JWPsnfOgp-lb-11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;3) Erreur 400&lt;/font&gt;" vertex="1">
           <mxGeometry height="60" width="120" x="707" y="380" as="geometry" />
         </mxCell>
-        <mxCell id="y-0SpUq-JWPsnfOgp-lb-12" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;span&gt;type de transaction et montant&amp;nbsp;&lt;/span&gt;&lt;div&gt;&lt;span&gt;presents&lt;/span&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="y-0SpUq-JWPsnfOgp-lb-12" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;span&gt;2) type de transaction et montant&amp;nbsp;&lt;/span&gt;&lt;div&gt;&lt;span&gt;presents&lt;/span&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="220" width="490" x="90" y="300" as="geometry" />
         </mxCell>
         <mxCell id="y-0SpUq-JWPsnfOgp-lb-30" edge="1" parent="1" source="y-0SpUq-JWPsnfOgp-lb-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=25;" target="y-0SpUq-JWPsnfOgp-lb-15">
@@ -37,7 +37,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="y-0SpUq-JWPsnfOgp-lb-13" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;span&gt;Montant &amp;lt; =0&lt;/span&gt;" vertex="1">
+        <mxCell id="y-0SpUq-JWPsnfOgp-lb-13" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;span&gt;4) Montant &amp;gt; 0&lt;/span&gt;" vertex="1">
           <mxGeometry height="150" width="391" x="139.5" y="610" as="geometry" />
         </mxCell>
         <mxCell id="y-0SpUq-JWPsnfOgp-lb-59" edge="1" parent="1" source="y-0SpUq-JWPsnfOgp-lb-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=25;">
@@ -50,7 +50,7 @@
             <mxPoint x="400" y="1800" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="y-0SpUq-JWPsnfOgp-lb-15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;Erreur 400&lt;/font&gt;" vertex="1">
+        <mxCell id="y-0SpUq-JWPsnfOgp-lb-15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;5) Erreur 400&lt;/font&gt;" vertex="1">
           <mxGeometry height="60" width="120" x="700" y="655" as="geometry" />
         </mxCell>
         <mxCell id="y-0SpUq-JWPsnfOgp-lb-32" edge="1" parent="1" source="y-0SpUq-JWPsnfOgp-lb-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=25;" target="y-0SpUq-JWPsnfOgp-lb-20">
@@ -72,8 +72,8 @@
         <mxCell id="y-0SpUq-JWPsnfOgp-lb-36" edge="1" parent="1" source="y-0SpUq-JWPsnfOgp-lb-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=25;" target="y-0SpUq-JWPsnfOgp-lb-25">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="y-0SpUq-JWPsnfOgp-lb-16" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;span&gt;transaction&lt;/span&gt;" vertex="1">
-          <mxGeometry height="150" width="429.5" x="130.75" y="880" as="geometry" />
+        <mxCell id="y-0SpUq-JWPsnfOgp-lb-16" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;span&gt;7) transaction&lt;/span&gt;" vertex="1">
+          <mxGeometry height="150" width="429.5" x="120.25" y="880" as="geometry" />
         </mxCell>
         <mxCell id="y-0SpUq-JWPsnfOgp-lb-34" edge="1" parent="1" source="y-0SpUq-JWPsnfOgp-lb-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=25;" target="y-0SpUq-JWPsnfOgp-lb-21">
           <mxGeometry relative="1" as="geometry" />
@@ -91,8 +91,8 @@
             <mxPoint y="1" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="y-0SpUq-JWPsnfOgp-lb-19" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;span&gt;Solde&amp;lt;Montant et solde &amp;lt;3000&lt;/span&gt;" vertex="1">
-          <mxGeometry height="190" width="391" x="790" y="840" as="geometry" />
+        <mxCell id="y-0SpUq-JWPsnfOgp-lb-19" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;span&gt;8) Solde&amp;lt;Montant et solde &amp;lt;3000&lt;/span&gt;" vertex="1">
+          <mxGeometry height="200" width="430" x="770.5" y="850" as="geometry" />
         </mxCell>
         <mxCell id="y-0SpUq-JWPsnfOgp-lb-37" edge="1" parent="1" source="y-0SpUq-JWPsnfOgp-lb-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=25;" target="y-0SpUq-JWPsnfOgp-lb-24">
           <mxGeometry relative="1" as="geometry" />
@@ -110,40 +110,40 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="y-0SpUq-JWPsnfOgp-lb-20" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;span&gt;expediteur != destinataire et&amp;nbsp;&lt;/span&gt;&lt;div&gt;&lt;span&gt;montant &amp;lt;3000 et solde&amp;lt;3000&lt;/span&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="y-0SpUq-JWPsnfOgp-lb-20" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;span&gt;6) expediteur != destinataire et&amp;nbsp;&lt;/span&gt;&lt;div&gt;&lt;span&gt;montant &amp;lt;3000 et solde&amp;lt;3000&lt;/span&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="220" width="460" x="-519.5" y="845" as="geometry" />
         </mxCell>
         <mxCell id="y-0SpUq-JWPsnfOgp-lb-58" edge="1" parent="1" source="y-0SpUq-JWPsnfOgp-lb-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=25;" target="y-0SpUq-JWPsnfOgp-lb-26">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="y-0SpUq-JWPsnfOgp-lb-21" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;Erreur 400&lt;/font&gt;" vertex="1">
+        <mxCell id="y-0SpUq-JWPsnfOgp-lb-21" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;13) Erreur 400&lt;/font&gt;" vertex="1">
           <mxGeometry height="60" width="120" x="1260" y="1330" as="geometry" />
         </mxCell>
         <mxCell id="y-0SpUq-JWPsnfOgp-lb-40" edge="1" parent="1" source="y-0SpUq-JWPsnfOgp-lb-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=25;" target="y-0SpUq-JWPsnfOgp-lb-26">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="y-0SpUq-JWPsnfOgp-lb-22" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;Retrait reussi&lt;/font&gt;" vertex="1">
+        <mxCell id="y-0SpUq-JWPsnfOgp-lb-22" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;12) Retrait reussi&lt;/font&gt;" vertex="1">
           <mxGeometry height="60" width="120" x="925.5" y="1330" as="geometry" />
         </mxCell>
         <mxCell id="y-0SpUq-JWPsnfOgp-lb-57" edge="1" parent="1" source="y-0SpUq-JWPsnfOgp-lb-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=25;" target="y-0SpUq-JWPsnfOgp-lb-26">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="y-0SpUq-JWPsnfOgp-lb-23" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;Erreur 400&lt;/font&gt;" vertex="1">
+        <mxCell id="y-0SpUq-JWPsnfOgp-lb-23" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;9) Erreur 400&lt;/font&gt;" vertex="1">
           <mxGeometry height="60" width="120" x="-680" y="1340" as="geometry" />
         </mxCell>
         <mxCell id="y-0SpUq-JWPsnfOgp-lb-38" edge="1" parent="1" source="y-0SpUq-JWPsnfOgp-lb-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=25;" target="y-0SpUq-JWPsnfOgp-lb-26">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="y-0SpUq-JWPsnfOgp-lb-24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;virement réussi&lt;/font&gt;" vertex="1">
-          <mxGeometry height="60" width="120" x="-349.5" y="1350" as="geometry" />
+        <mxCell id="y-0SpUq-JWPsnfOgp-lb-24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;10) virement réussi&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="159.5" x="-369.25" y="1335" as="geometry" />
         </mxCell>
         <mxCell id="y-0SpUq-JWPsnfOgp-lb-39" edge="1" parent="1" source="y-0SpUq-JWPsnfOgp-lb-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=25;" target="y-0SpUq-JWPsnfOgp-lb-26">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="y-0SpUq-JWPsnfOgp-lb-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;type de transaction inconnue&lt;/font&gt;" vertex="1">
+        <mxCell id="y-0SpUq-JWPsnfOgp-lb-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;11) type de transaction inconnue&lt;/font&gt;" vertex="1">
           <mxGeometry height="90" width="140" x="274" y="1310" as="geometry" />
         </mxCell>
-        <mxCell id="y-0SpUq-JWPsnfOgp-lb-26" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;FIN&lt;/font&gt;" vertex="1">
+        <mxCell id="y-0SpUq-JWPsnfOgp-lb-26" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=25;" value="&lt;font&gt;14) FIN&lt;/font&gt;" vertex="1">
           <mxGeometry height="60" width="120" x="285.5" y="1770" as="geometry" />
         </mxCell>
         <mxCell id="y-0SpUq-JWPsnfOgp-lb-27" edge="1" parent="1" source="y-0SpUq-JWPsnfOgp-lb-10" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=25;" target="y-0SpUq-JWPsnfOgp-lb-12" value="">

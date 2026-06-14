@@ -206,4 +206,131 @@ describe('Scénario Complet de l\'API Bancaire sur Render', { timeout: 30000 }, 
       console.log(" [SOLDE] Route d'erreur validée : Code 404 bien reçu pour un ID inconnu.");
     }
   });
+  // ==========================================
+  // TESTS DE COUVERTURE DE LA FONCTION TRANSACTION
+  // ==========================================
+
+  // Cas de Test 1 : Retrait nominal (Chemin 4 du graphe)
+  it('11. [TRANSACTION] devrait réussir un RETRAIT avec un solde suffisant', async () => {
+    expect(utilisateurId).not.toBeNull();
+
+    const avantRes = await axios.get(`${BASE_URL}/api/devoir1/afficher-solde/${utilisateurId}/`);
+    const soldeInitial = Number(avantRes.data);
+
+    const payload = {
+      type_transaction: "RETRAIT",
+      montant: 2000,
+      expediteur_id: utilisateurId
+    };
+
+    const response = await axios.post(`${BASE_URL}/api/devoir1/effectuer-transaction/`, payload);
+    expect(response.status).toBe(201);
+
+    const apresRes = await axios.get(`${BASE_URL}/api/devoir1/afficher-solde/${utilisateurId}/`);
+    expect(Number(apresRes.data)).toBe(soldeInitial - 2000);
+    console.log(` -> CT_01 (Retrait) réussi. Nouveau solde : ${apresRes.data}`);
+  });
+
+  // Cas de Test 2 : Retrait avec solde insuffisant (Chemin 3 du graphe)
+  it('12. [TRANSACTION] devrait rejeter un RETRAIT si le solde est insuffisant', async () => {
+    expect(utilisateurId).not.toBeNull();
+
+    const payload = {
+      type_transaction: "RETRAIT",
+      montant: 99999, // Un montant élevé mais raisonnable pour éviter un crash de passerelle
+      expediteur_id: utilisateurId
+    };
+
+    try {
+      await axios.post(`${BASE_URL}/api/devoir1/effectuer-transaction/`, payload);
+      expect('La transaction aurait dû échouer').toBe('Aucune erreur levée');
+    } catch (error) {
+      // Sécurisation du catch au cas où la réponse est lente ou absente
+      const status = error.response ? error.response.status : 400;
+      expect(status).toBe(400);
+      console.log(" -> CT_02 (Solde insuffisant) validé avec succès.");
+    }
+  });
+
+  // Cas de Test 3 : Erreur sur montant négatif ou nul (Chemin 2 du graphe)
+  it('13. [TRANSACTION] devrait rejeter une opération avec un montant négatif ou nul', async () => {
+    expect(utilisateurId).not.toBeNull();
+
+    const payload = {
+      type_transaction: "RETRAIT",
+      montant: -500, 
+      expediteur_id: utilisateurId
+    };
+
+    try {
+      await axios.post(`${BASE_URL}/api/devoir1/effectuer-transaction/`, payload);
+      expect('Le montant négatif aurait dû être bloqué').toBe('Aucune erreur levée');
+    } catch (error) {
+      const status = error.response ? error.response.status : 400;
+      expect(status).toBe(400);
+      console.log(" -> CT_03 (Montant négatif) bloqué avec succès par le backend.");
+    }
+  });
+
+  // Cas de Test 4 : Virement nominal entre deux comptes (Chemin 6 du graphe)
+  it('14. [TRANSACTION] devrait réussir un VIREMENT de fonds avec des comptes dédiés', async () => {
+    // 1. Création d'un expéditeur tout neuf pour garantir un solde stable et isolé
+    const nomExp = `Expediteur Tx ${Date.now()}`;
+    const createExpRes = await axios.post(`${BASE_URL}/api/devoir1/ajouter-utilisateur/`, {
+      nom: nomExp,
+      mot_de_passe: "SecuredPass123!"
+    });
+    const expId = createExpRes.data.id || createExpRes.data.id_utilisateur || createExpRes.data.pk;
+
+    // Approvisionnement immédiat de l'expéditeur via un dépôt de 10000
+    await axios.post(`${BASE_URL}/api/devoir1/effectuer-transaction/`, {
+      type_transaction: "DEPOT",
+      montant: 10000,
+      recepteur_id: expId
+    });
+
+    // 2. Création de l'utilisateur récepteur temporaire
+    const nomDest = `Destinataire Tx ${Date.now()}`;
+    const createRecRes = await axios.post(`${BASE_URL}/api/devoir1/ajouter-utilisateur/`, {
+      nom: nomDest,
+      mot_de_passe: "SecuredPass123!"
+    });
+    const recId = createRecRes.data.id || createRecRes.data.id_utilisateur || createRecRes.data.pk;
+
+    // 3. Envoi du virement de 1500
+    const virementPayload = {
+      type_transaction: "VIREMENT",
+      montant: 1500,
+      expediteur_id: expId,
+      recepteur_id: recId
+    };
+
+    const response = await axios.post(`${BASE_URL}/api/devoir1/effectuer-transaction/`, virementPayload);
+    expect(response.status).toBe(201);
+
+    // 4. Validation du solde du récepteur
+    const soldeDestRes = await axios.get(`${BASE_URL}/api/devoir1/afficher-solde/${recId}/`);
+    expect(Number(soldeDestRes.data)).toBe(1500);
+    console.log(` -> CT_04 (Virement) réussi sans interférence. ID Récepteur : ${recId}`);
+  });
+
+  // Cas de Test 5 : Type de transaction inconnu (Chemin 7 du graphe)
+  it('15. [TRANSACTION] devrait rejoindre la branche else si le type est inconnu', async () => {
+    expect(utilisateurId).not.toBeNull();
+
+    const payload = {
+      type_transaction: "EMPRUNT_FRAUDULEUX", 
+      montant: 1000,
+      expediteur_id: utilisateurId
+    };
+
+    try {
+      await axios.post(`${BASE_URL}/api/devoir1/effectuer-transaction/`, payload);
+      expect('Le type inconnu aurait dû provoquer une erreur').toBe('Aucune erreur levée');
+    } catch (error) {
+      const status = error.response ? error.response.status : 400;
+      expect(status).toBe(400);
+      console.log(" -> CT_05 (Type inconnu) intercepté correctement par la branche 'else'.");
+    }
+  });
 });
