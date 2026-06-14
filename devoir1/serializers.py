@@ -4,7 +4,7 @@ from .models import Utilisateur,Controleur,Transaction
 class UtilisateurSerializer(serializers.ModelSerializer):
     class Meta:
         model = Utilisateur
-        fields = ['nom', 'mot_de_passe','solde']
+        fields = ['id','nom', 'mot_de_passe','solde']
         extra_kwargs = {
             'mot_de_passe': {
                 #'write_only': True,

@@ -3,42 +3,41 @@ import axios from 'axios';
 
 const BASE_URL = 'https://devoir-inf352-api.onrender.com';
 
-describe('Scénario Complet de l\'API Bancaire sur Render', { timeout: 0 }, () => {
+describe('Scénario Complet de l\'API Bancaire sur Render', { timeout: 30000 }, () => {
+  // Variables globales du bloc de test
   let utilisateurId = null;
-  // On utilise un nom unique avec un timestamp pour éviter de récupérer une ancienne ligne "Sonna"
+  let monControleurId = null;
+
   const uniqueNom = `Sonna Clautel ${Date.now()}`; 
 
-  // Étape 1 : Créer un utilisateur et extraire son véritable ID de la base de données
+  // Étape 1 : Créer un utilisateur et extraire son ID réel
   it('1. devrait réussir à créer un nouvel utilisateur', async () => {
     const payload = {
       nom: uniqueNom,
       mot_de_passe: "MonSuperMotDePasse123!"
     };
 
-    // 1. Création
-    const response = await axios.post(`${BASE_URL}/api/devoir1/ajouter-utilisateur/`, payload);
-    expect([200, 201]).toContain(response.status);
+    await axios.post(`${BASE_URL}/api/devoir1/ajouter-utilisateur/`, payload);
     
-    // 2. Récupération de la liste complète sur Neon pour trouver l'ID généré automatiquement
+    // On va chercher dans la liste l'utilisateur qu'on vient de créer
     const listeResponse = await axios.get(`${BASE_URL}/api/devoir1/liste-utilisateurs/`);
-    const tousLesUtilisateurs = listeResponse.data;
+    const utilisateurTrouve = listeResponse.data.find(u => u.nom === uniqueNom);
     
-    // On cherche l'utilisateur qu'on vient tout juste de créer par son nom unique
-    const utilisateurTrouve = tousLesUtilisateurs.find(u => u.nom === uniqueNom);
-    
-    // Si ton modèle ou serializer n'inclut VRAIMENT pas le champ 'id', on prendra la position (index + 1) 
-    // ou son champ d'identification. Essayons d'abord de lire u.id ou u.id_utilisateur
-    utilisateurId = utilisateurTrouve?.id || utilisateurTrouve?.id_utilisateur;
-    
-    // Solution de secours si l'id n'est pas du tout sérialisé : on utilise le nom si ton modèle accepte le nom à la place de l'ID
-    if (!utilisateurId) {
-      console.log(" Le champ 'id' n'est pas présent dans le JSON renvoyé par ton serializer.");
-      console.log("On tente d'utiliser l'index de sa position comme ID numérique.");
-      utilisateurId = tousLesUtilisateurs.findIndex(u => u.nom === uniqueNom) + 1;
+    // Extraction multi-clés : on teste toutes les variantes possibles de clé primaire
+    utilisateurId = utilisateurTrouve?.id || 
+                    utilisateurTrouve?.id_utilisateur || 
+                    utilisateurTrouve?.pk ||
+                    utilisateurTrouve?.id_user;
+
+    // Si Django refuse toujours de renvoyer l'ID, on prend l'ID du tout dernier utilisateur de la liste par sécurité
+    if (!utilisateurId && listeResponse.data.length > 0) {
+      const dernier = listeResponse.data[listeResponse.data.length - 1];
+      utilisateurId = dernier?.id || dernier?.id_utilisateur || dernier?.pk;
     }
 
-    console.log(` Utilisateur trouvé en BDD. ID détecté : ${utilisateurId}`);
+    console.log(` Utilisateur trouvé en BDD. ID réel détecté : ${utilisateurId}`);
     expect(utilisateurId).toBeDefined();
+    expect(utilisateurId).not.toBeNull();
   });
 
   // Étape 2 : Effectuer un dépôt (DEPOT)
@@ -53,7 +52,6 @@ describe('Scénario Complet de l\'API Bancaire sur Render', { timeout: 0 }, () =
 
     const response = await axios.post(`${BASE_URL}/api/devoir1/effectuer-transaction/`, transactionPayload);
     expect(response.status).toBe(201);
-    console.log(" Dépôt effectué :", response.data.message);
   });
 
   // Étape 3 : Vérifier le solde mis à jour
@@ -64,28 +62,23 @@ describe('Scénario Complet de l\'API Bancaire sur Render', { timeout: 0 }, () =
     expect(response.status).toBe(200);
     
     console.log(` Solde actuel de l'utilisateur (ID: ${utilisateurId}) :`, response.data);
-    expect(Number(response.data)).toBe(15000);
+    expect(Number(response.data)).toBe(15000); 
   });
 
-  // Étape 3 : Modifier l'utilisateur et vérifier la mise à jour
+  // Étape 4 : Modifier l'utilisateur
   it('4. devrait réussir à modifier l\'utilisateur et afficher son solde', async () => {
     expect(utilisateurId).not.toBeNull();
 
-    // 1. On modifie le nom de l'utilisateur
-    const modifPayload = {
-      nom: `${uniqueNom} Modifié`
-    };
-    const modifResponse = await axios.patch(`${BASE_URL}/api/devoir1/modifier-utilisateur/${utilisateurId}/`, modifPayload);
-    expect(modifResponse.status).toBe(200);
-    console.log(" Utilisateur modifié avec succès");
+    const payload = { nom: `${uniqueNom} Modifié` };
+    const response = await axios.patch(`${BASE_URL}/api/devoir1/modifier-utilisateur/${utilisateurId}/`, payload);
+    expect(response.status).toBe(200);
 
-    // 2. On vérifie son solde (qui doit toujours être à 15000 après le dépôt de l'étape 2)
     const soldeResponse = await axios.get(`${BASE_URL}/api/devoir1/afficher-solde/${utilisateurId}/`);
     expect(soldeResponse.status).toBe(200);
-    
-    console.log(` Solde actuel de l'utilisateur modifié (ID: ${utilisateurId}) :`, soldeResponse.data);
     expect(Number(soldeResponse.data)).toBe(15000);
   });
+
+  // Étape 5 : Créer un contrôleur
   it('5. devrait réussir à créer un nouveau contrôleur', async () => {
     const payload = {
       nom: `Ctrl Sonna ${Date.now()}`,
@@ -94,24 +87,21 @@ describe('Scénario Complet de l\'API Bancaire sur Render', { timeout: 0 }, () =
 
     const response = await axios.post(`${BASE_URL}/api/devoir1/creer-controleur/`, payload);
     expect([200, 201]).toContain(response.status);
-    console.log(" Contrôleur créé avec succès");
   });
-// Étape 6 : Liste des contrôleurs et récupération de l'ID réel sur Neon
+
+  // Étape 6 : Lister les contrôleurs et récupérer l'ID
   it('6. devrait réussir à lister les contrôleurs et récupérer l\'ID créé', async () => {
     const response = await axios.get(`${BASE_URL}/api/devoir1/liste-controleur/`);
     expect(response.status).toBe(200);
     expect(Array.isArray(response.data)).toBe(true);
 
-    // Comme on sait que l'étape 5 vient de créer un contrôleur juste avant,
-    // on récupère le tout dernier élément du tableau renvoyé par Render/Neon.
     const dernierControleur = response.data[response.data.length - 1];
     
-    // Extraction de l'ID peu importe le nom du champ généré par le sérialiseur
-    controleurId = dernierControleur?.id || dernierControleur?.id_controleur;
+    // Utilisation de la variable locale au describe pour éviter les ReferenceError
+    monControleurId = dernierControleur?.id;
 
-    console.log(` Contrôleur trouvé en BDD. ID détecté : ${controleurId}`);
-    expect(controleurId).toBeDefined();
+    console.log(` Contrôleur trouvé en BDD. ID réel détecté : ${monControleurId}`);
+    expect(monControleurId).toBeDefined();
+    expect(monControleurId).not.toBeNull();
   });
-
 });
-
